@@ -270,6 +270,9 @@ class FClient {
   late Tokens _tokens;
   Tokens get tokens => _tokens;
 
+  late Health _health;
+  Health get health => _health;
+
   void _setServices() {
     _databases = Databases(_client);
     _storage = Storage(_client);
@@ -282,6 +285,7 @@ class FClient {
     _avatars = Avatars(_client);
     _sites = Sites(_client);
     _tokens = Tokens(_client);
+    _health = Health(_client);
   }
 
   void updateClient(Client client) {
