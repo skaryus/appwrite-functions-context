@@ -238,7 +238,7 @@ class FClient {
   }
 
   late Databases _databases;
-  Databases get database => _databases;
+  Databases get databases => _databases;
 
   late Storage _storage;
   Storage get storage => _storage;
