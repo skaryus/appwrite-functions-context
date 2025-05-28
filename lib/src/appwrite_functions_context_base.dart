@@ -238,6 +238,22 @@ class FClient {
     _setServices();
   }
 
+  factory FClient.fromUserKey({required FContext ctx}) {
+    return FClient._(
+        client: Client()
+          ..setEndpoint(ctx.env.appwriteApiEndpoint)
+          ..setProject(ctx.env.appwriteFunctionProjectId)
+          ..setKey(ctx.headers.appwriteKey));
+  }
+
+  factory FClient.fromApiKey({required FContext ctx}) {
+    return FClient._(
+        client: Client()
+          ..setEndpoint(ctx.env.appwriteApiEndpoint)
+          ..setProject(ctx.env.appwriteFunctionProjectId)
+          ..setKey(ctx.env.appwriteApiKey));
+  }
+
   late Databases _databases;
   Databases get databases => _databases;
 
