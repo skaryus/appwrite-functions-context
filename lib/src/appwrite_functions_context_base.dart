@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'dart:math';
 import 'dart:typed_data';
 
 import 'package:dart_appwrite/dart_appwrite.dart';
@@ -291,5 +292,40 @@ class FClient {
   void updateClient(Client client) {
     _client = client;
     _setServices();
+  }
+}
+
+abstract class NanoID {
+  static const String uppercase = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+  static const String lowercase = 'abcdefghijklmnopqrstuvwxyz';
+  static const String numbers = '0123456789';
+  static const String symbols = '_-';
+  static final Random _random = Random.secure();
+
+  static String generate({
+    int size = 10,
+    bool includeUppercase = true,
+    bool includeLowercase = true,
+    bool includeNumbers = true,
+    bool includeSymbols = false,
+    bool excludeLookAlike = false,
+  }) {
+    String alphabet = '';
+
+    if (includeUppercase) alphabet += uppercase;
+    if (includeLowercase) alphabet += lowercase;
+    if (includeNumbers) alphabet += numbers;
+    if (includeSymbols) alphabet += symbols;
+
+    if (excludeLookAlike) {
+      alphabet = alphabet.replaceAll(RegExp(r'[Il1O0oQCG9g6B8DS5Z2]'), '');
+    }
+
+    if (alphabet.isEmpty) {
+      throw ArgumentError('At least one character set must be enabled.');
+    }
+
+    return List.generate(
+        size, (index) => alphabet[_random.nextInt(alphabet.length)]).join();
   }
 }
