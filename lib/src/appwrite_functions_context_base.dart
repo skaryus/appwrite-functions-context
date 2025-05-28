@@ -230,6 +230,8 @@ class FClient {
   static FClient get sl =>
       _sl != null ? _sl! : throw Exception("FClient not initialized yet !");
 
+  void setAsSingleton() => _sl = this;
+
   Client _client;
   Client get client => _client;
 
